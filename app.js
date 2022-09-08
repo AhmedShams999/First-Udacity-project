@@ -59,4 +59,3 @@
 
 // Set sections as active
 
-alert("hi");
