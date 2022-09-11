@@ -59,7 +59,10 @@ section {
   position: relative;
   min-height: 80vh;
 }
-
+.active h2{
+  font-size: 4em;
+  transition:  font-size 0.8s ;
+}
 
 /* ---- Module Rules ---- */
 
@@ -72,10 +75,10 @@ section {
 
 .navbar__menu li {
   display: inline-block;
+  cursor: pointer;
 }
 
 .navbar__menu .menu__link {
-  display: block;
   padding: 1em;
   font-weight: bold;
   text-decoration: none;
