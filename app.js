@@ -29,8 +29,23 @@ const sections = document.querySelectorAll('section');
  * Start Helper Functions
  * 
  */
+ function getOffset(el) {
+  const rect = el.getBoundingClientRect();
+  return {
+    left: rect.left + window.scrollX,
+    top: rect.top + window.scrollY
+  };
+}
 
+function choosediv(element){
+  if (document.querySelectorAll('.active').length > 0) {
+      document.querySelectorAll('.active').forEach(el => {
+        el.classList.remove('active');
+      })
+  }
 
+  element.classList.add('active');
+}
 
 /**
  * End Helper Functions
@@ -109,21 +124,5 @@ document.addEventListener("scroll",function(e){
 })
 
 
-function getOffset(el) {
-  const rect = el.getBoundingClientRect();
-  return {
-    left: rect.left + window.scrollX,
-    top: rect.top + window.scrollY
-  };
-}
 
-function choosediv(element){
-  if (document.querySelectorAll('.active').length > 0) {
-      document.querySelectorAll('.active').forEach(el => {
-        el.classList.remove('active');
-      })
-  }
 
-  element.classList.add('active');
-}
-console.log( getOffset(sections[1]));
