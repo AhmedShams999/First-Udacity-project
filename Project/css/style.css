@@ -62,6 +62,7 @@ section {
 }
 .active h2{
   font-size: 4em;
+  color: #cc1;
   transition:  font-size 0.8s ;
 }
 
@@ -100,6 +101,7 @@ section {
   top: 0;
   width: 100%;
   z-index: 5;
+  
 }
 
 /* Footer Styles */
@@ -125,6 +127,11 @@ section {
   .landing__container {
       max-width: 50em;
       padding: 4em;
+  }
+}
+@media only screen and (max-width: 390px){
+  body{
+    padding-top: 50px;
   }
 }
 
