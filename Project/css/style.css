@@ -133,6 +133,7 @@ section {
   body{
     padding-top: 50px;
   }
+ 
 }
 
 section:nth-of-type(even) .landing__container {

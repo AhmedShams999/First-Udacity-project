@@ -105,24 +105,40 @@ function scrolToSection(e){
 document.addEventListener("scroll",function(e){
 
  
-    if (window.scrollY >= 606 && window.scrollY <1440){
+    if (window.scrollY >= 471){
 
       choosediv(sections[0])
     }
-    if (window.scrollY >= 1440 && window.scrollY <2392){
+    if (window.scrollY >= 1440){
       choosediv(sections[1])
      
     }
-    if (window.scrollY >= 2392 && window.scrollY <3285){
+    if (window.scrollY >= 2392){
       choosediv(sections[2])
     }
-    if (window.scrollY >= 3285 && window.scrollY <4285){
+    if (window.scrollY >= 3285){
       choosediv(sections[3])
     }
  
- 
+  if (document.body.clientWidth <= 390){
+    if (window.scrollY >= 200){
+
+      choosediv(sections[0])
+    }
+    if (window.scrollY >= 1108){
+      choosediv(sections[1])
+     
+    }
+    if (window.scrollY >= 1990){
+      choosediv(sections[2])
+    }
+    if (window.scrollY >= 2900){
+      choosediv(sections[3])
+    }
+  }
 })
 
 
 
 
+console.log(window.scrollY);
