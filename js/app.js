@@ -37,6 +37,16 @@ const sections = document.querySelectorAll('section');
   };
 }
 
+ function isInViewport(elem) {
+    var distance = elem.getBoundingClientRect();
+     return (
+     distance.top >= 0 &&
+     distance.left >= 0 &&
+     distance.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+     distance.right <= (window.innerWidth || document.documentElement.clientWidth)
+    );
+  };
+
 function choosediv(element){
   if (document.querySelectorAll('.active').length > 0) {
       document.querySelectorAll('.active').forEach(el => {
@@ -53,26 +63,21 @@ function choosediv(element){
  * 
  */
 function scrolToSection(e){
-  /*
-  for (let i = 0 ; i < sections.length ; i++){
-    sections[i].classList.remove('active');  
-  }
-  */
- for (let i = 0 ; i < sections.length ; i++){
-   //debugger;
+  
  
-   if (e.target.textContent === sections[i].id){
-     sections[i].scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
-         // sections[i].classList.toggle('active');
-        
-        }   
-        
-      }
+  for (let i = 0 ; i < sections.length ; i++){
+    //debugger;
+  
+    if (e.target.textContent === sections[i].id){
+      sections[i].scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
+         }   
+         
+       }
     }
     
   // build the nav
   
-  for (let i =1 ; i <=4 ; i++){
+  for (let i =1 ; i <=sections.length ; i++){
   const navEl = document.createElement('li');
   navEl.textContent= "Section" + i;
   navEl.classList.add('menu__link');
@@ -102,43 +107,18 @@ function scrolToSection(e){
 // Scroll to section on link click
 
 // Set sections as active
-document.addEventListener("scroll",function(e){
+window.addEventListener("scroll",function(e){
+console.log('hi');
+  sections.forEach(function(el){
+     if(isInViewport(el)){
 
- 
-    if (window.scrollY >= 471){
-
-      choosediv(sections[0])
-    }
-    if (window.scrollY >= 1440){
-      choosediv(sections[1])
-     
-    }
-    if (window.scrollY >= 2392){
-      choosediv(sections[2])
-    }
-    if (window.scrollY >= 3285){
-      choosediv(sections[3])
-    }
- 
-  if (document.body.clientWidth <= 390){
-    if (window.scrollY >= 200){
-
-      choosediv(sections[0])
-    }
-    if (window.scrollY >= 1108){
-      choosediv(sections[1])
-     
-    }
-    if (window.scrollY >= 1990){
-      choosediv(sections[2])
-    }
-    if (window.scrollY >= 2900){
-      choosediv(sections[3])
-    }
-  }
+       el.classList.add('active');
+       choosediv(el);
+      }
+  })
+  
 })
 
 
 
 
-console.log(window.scrollY);
