@@ -37,16 +37,6 @@ const sections = document.querySelectorAll('section');
   };
 }
 
- function isInViewport(elem) {
-    var distance = elem.getBoundingClientRect();
-     return (
-     distance.top >= 0 &&
-     distance.left >= 0 &&
-     distance.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-     distance.right <= (window.innerWidth || document.documentElement.clientWidth)
-    );
-  };
-
 function choosediv(element){
   if (document.querySelectorAll('.active').length > 0) {
       document.querySelectorAll('.active').forEach(el => {
@@ -107,18 +97,22 @@ function scrolToSection(e){
 // Scroll to section on link click
 
 // Set sections as active
-window.addEventListener("scroll",function(e){
-console.log('hi');
-  sections.forEach(function(el){
-     if(isInViewport(el)){
-
-       el.classList.add('active');
-       choosediv(el);
+const inViewport = (elem) => {
+  let allElements = document.getElementsByTagName(elem);
+  let windowHeight = window.innerHeight;
+  const elems = () => {
+      for (let i = 0; i < allElements.length; i++) {  //  loop through the sections
+          let viewportOffset = allElements[i].getBoundingClientRect();  //  returns the size of an element and its position relative to the viewport
+          let top = viewportOffset.top;  //  get the offset top
+          if(top < windowHeight){  //  if the top offset is less than the window height
+            choosediv(allElements[i])  //  add the class
+          } else{
+              allElements[i].classList.remove('active');  //  remove the class
+          }
       }
-  })
-  
-})
+  }
+  elems();
+  window.addEventListener('scroll', elems);
+}
 
-
-
-
+inViewport('section'); 
