@@ -29,21 +29,13 @@ const sections = document.querySelectorAll('section');
  * Start Helper Functions
  * 
  */
- function getOffset(el) {
-  const rect = el.getBoundingClientRect();
-  return {
-    left: rect.left + window.scrollX,
-    top: rect.top + window.scrollY
-  };
-}
-
+// help remove active class from all other sections
 function choosediv(element){
   if (document.querySelectorAll('.active').length > 0) {
       document.querySelectorAll('.active').forEach(el => {
         el.classList.remove('active');
       })
   }
-
   element.classList.add('active');
 }
 
@@ -51,20 +43,7 @@ function choosediv(element){
  * End Helper Functions
  * Begin Main Functions
  * 
- */
-function scrolToSection(e){
-  
- 
-  for (let i = 0 ; i < sections.length ; i++){
-    //debugger;
-  
-    if (e.target.textContent === sections[i].id){
-      sections[i].scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
-         }   
-         
-       }
-    }
-    
+ */ 
   // build the nav
   
   for (let i =1 ; i <=sections.length ; i++){
@@ -73,17 +52,32 @@ function scrolToSection(e){
   navEl.classList.add('menu__link');
   ulEl.appendChild(navEl);
   
-  navEl.addEventListener('click',function(e){
- 
+  navEl.addEventListener('click',function(e){ 
     scrolToSection(e);
-    
+   
   })
  }
 
 // Add class 'active' to section when near top of viewport
-
+function scroll(){
+  let windowHeight = window.innerHeight;
+  for (let i = 0 ; i < sections.length; i++){
+    let viewport = sections[i].getBoundingClientRect();
+    let top = viewport.top
+    if(top < windowHeight){
+      choosediv(sections[i]);
+    }
+  }
+}
 
 // Scroll to anchor ID using scrollTO event
+function scrolToSection(e){
+for (let i = 0 ; i < sections.length ; i++){
+    if (e.target.textContent === sections[i].id){
+      sections[i].scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
+         }       
+       }
+ }
 
 
 /**
@@ -95,24 +89,5 @@ function scrolToSection(e){
 // Build menu 
 
 // Scroll to section on link click
-
 // Set sections as active
-const inViewport = (elem) => {
-  let allElements = document.getElementsByTagName(elem);
-  let windowHeight = window.innerHeight;
-  const elems = () => {
-      for (let i = 0; i < allElements.length; i++) {  //  loop through the sections
-          let viewportOffset = allElements[i].getBoundingClientRect();  //  returns the size of an element and its position relative to the viewport
-          let top = viewportOffset.top;  //  get the offset top
-          if(top < windowHeight){  //  if the top offset is less than the window height
-            choosediv(allElements[i])  //  add the class
-          } else{
-              allElements[i].classList.remove('active');  //  remove the class
-          }
-      }
-  }
-  elems();
-  window.addEventListener('scroll', elems);
-}
-
-inViewport('section'); 
+window.addEventListener('scroll', scroll);
